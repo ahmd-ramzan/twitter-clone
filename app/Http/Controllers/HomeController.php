@@ -23,6 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        dd(\request()->user()->tweetsFromFollowing);
         return view('home');
     }
 }
