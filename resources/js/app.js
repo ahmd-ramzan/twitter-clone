@@ -17,6 +17,8 @@ const pinia = createPinia()
  */
 
 const app = createApp({});
+// inject '$user' variable globally
+app.config.globalProperties.$user =  User
 
 /**
  * The following block of code may be used to automatically register your
