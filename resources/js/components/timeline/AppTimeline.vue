@@ -10,15 +10,41 @@
 
 <script>
 import {useTimelineStore} from "@/store/timeline";
+import {ref} from 'vue'
 export default {
     name: "AppTimeline",
     setup() {
-      const timeline = useTimelineStore()
-        timeline.getTweets()
-        return {timeline}
+        const timeline = useTimelineStore()
+        let page = ref(1)
+
+        function urlWithPage() {
+            return `/api/timeline?page=${page.value}`;
+        }
+
+        function loadTweets() {
+            timeline.getTweets(urlWithPage())
+        }
+        return {timeline, loadTweets, page}
+    },
+    methods: {
+        scroll () {
+            window.onscroll = () => {
+                if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 1) {
+                    this.handleScrolledToBottomOfTimeline()
+                }
+            }
+        },
+        handleScrolledToBottomOfTimeline() {
+            if (this.page >= this.timeline.lastPage) {
+                return;
+            }
+            this.page++
+            this.loadTweets()
+        }
     },
     created() {
-        //timeline.getTweets()
+       this.scroll()
+        this.loadTweets()
     }
 }
 </script>

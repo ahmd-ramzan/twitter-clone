@@ -4,18 +4,17 @@ import axios from "axios";
 export const useTimelineStore = defineStore('timeline', {
     state: () => {
         return {
-            tweets: []
+            tweets: [],
+            lastPage: 1
         }
     },
-   /* getters: {
-        tweets(state) {
-            return state.tweets
-        }
-    },*/
     actions: {
-        async getTweets() {
-            let response = await axios.get('/api/timeline')
-            this.tweets = response.data.data
+        async getTweets(url) {
+            let response = await axios.get(url)
+            this.lastPage = response.data.meta.last_page
+            response.data.data.map((tweet) => {
+                this.tweets.push(tweet)
+            })
         }
     }
 })
