@@ -5,7 +5,7 @@
         </div>
 
         <app-tweet
-            v-for="tweet in timeline.tweets"
+            v-for="tweet in timeline.sortedTweets"
             :key="tweet.id"
             :tweet="tweet"
         />
@@ -49,6 +49,11 @@ export default {
     created() {
        this.scroll()
         this.loadTweets()
+
+        Echo.private(`timeline.${this.$user.id}`)
+            .listen('.TweetWasCreated', (e) => {
+               this.timeline.tweets.push(e)
+            })
     }
 }
 </script>

@@ -8,6 +8,9 @@ export const useTimelineStore = defineStore('timeline', {
             lastPage: 1
         }
     },
+    getters: {
+      sortedTweets: (state) => state.tweets.sort((a, b) => b.created_at - a.created_at)
+    },
     actions: {
         async getTweets(url) {
             let response = await axios.get(url)
