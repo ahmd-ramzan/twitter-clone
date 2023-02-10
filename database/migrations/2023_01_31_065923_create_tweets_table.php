@@ -16,11 +16,13 @@ return new class extends Migration
         Schema::create('tweets', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->index();
+            $table->unsignedBigInteger('original_tweet_id')->index()->nullable();
             $table->string('type');
-            $table->text('body', 250);
+            $table->text('body', 250)->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('original_tweet_id')->references('id')->on('tweets')->onDelete('cascade');
         });
     }
 
