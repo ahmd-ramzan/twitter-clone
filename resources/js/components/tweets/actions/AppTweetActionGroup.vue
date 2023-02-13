@@ -10,7 +10,19 @@
         </li>
         <li>
             <app-tweet-like-action
+                :tweet="tweet"
             />
         </li>
     </ul>
 </template>
+
+<script>
+export default {
+    props: {
+        tweet: {
+            required: true,
+            type: Object
+        }
+    }
+}
+</script>
