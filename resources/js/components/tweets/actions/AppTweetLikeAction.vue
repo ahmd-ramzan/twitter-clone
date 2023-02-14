@@ -1,5 +1,5 @@
 <template>
-    <a href="" class="flex items-center text-base">
+    <a href="#" @click.prevent="likeOrUnlike" class="flex items-center text-base">
         <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -36,6 +36,15 @@ export default {
     setup() {
         const timeline = useTimelineStore();
         return {timeline}
+    },
+    methods: {
+        likeOrUnlike() {
+            if (this.liked) {
+                this.timeline.unlikeTweet(this.tweet)
+                return
+            }
+            this.timeline.likeTweet(this.tweet)
+        }
     }
 }
 </script>

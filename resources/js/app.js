@@ -7,6 +7,7 @@
 import './bootstrap';
 import { createApp } from 'vue';
 import { createPinia } from 'pinia'
+import {useTimelineStore} from "@/store/timeline";
 
 const pinia = createPinia()
 
@@ -39,3 +40,9 @@ Object.entries(import.meta.glob('./**/*.vue', { eager: true })).forEach(([path, 
  */
 
 app.use(pinia).mount('#app');
+
+const timeline = useTimelineStore()
+Echo.channel('tweets').listen('.TweetLikesWereUpdated', (e) => {
+    timeline.setLikes(e)
+    console.log(e, 'likes event')
+})

@@ -26,6 +26,20 @@ export const useTimelineStore = defineStore('timeline', {
             data.map((like) => {
                 this.likes.push(like)
             })
+        },
+        async likeTweet(tweet) {
+            await axios.post(`/api/tweets/${tweet.id}/likes`)
+        },
+        async unlikeTweet(tweet) {
+            await axios.delete(`/api/tweets/${tweet.id}/likes`)
+        },
+        setLikes({id, count}) {
+            this.tweets.map((tweet) => {
+                if (tweet.id === id) {
+                    tweet.likes_count = count
+                }
+                return tweet
+            })
         }
     }
 })
