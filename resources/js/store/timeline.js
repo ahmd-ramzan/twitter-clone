@@ -45,6 +45,9 @@ export const useTimelineStore = defineStore('timeline', {
                 if (tweet.id === id) {
                     tweet.likes_count = count
                 }
+                if (tweet.original_tweet !== null && tweet.original_tweet.id === id) {
+                    tweet.original_tweet.likes_count = count
+                }
                 return tweet
             })
         },
