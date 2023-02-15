@@ -44,5 +44,7 @@ app.use(pinia).mount('#app');
 const timeline = useTimelineStore()
 Echo.channel('tweets').listen('.TweetLikesWereUpdated', (e) => {
     timeline.setLikes(e)
-    console.log(e, 'likes event')
+    if (e.user_id === User.id) {
+        timeline.syncLike(e.id)
+    }
 })

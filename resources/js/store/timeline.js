@@ -1,5 +1,6 @@
 import {defineStore} from "pinia";
 import axios from "axios";
+import {without} from "lodash";
 
 export const useTimelineStore = defineStore('timeline', {
     state: () => {
@@ -27,6 +28,12 @@ export const useTimelineStore = defineStore('timeline', {
                 this.likes.push(like)
             })
         },
+        pushLike(id) {
+            this.likes.push(id)
+        },
+        popLike(id) {
+            this.likes = without(this.likes, id)
+        },
         async likeTweet(tweet) {
             await axios.post(`/api/tweets/${tweet.id}/likes`)
         },
@@ -40,6 +47,13 @@ export const useTimelineStore = defineStore('timeline', {
                 }
                 return tweet
             })
+        },
+        syncLike(id) {
+            if (this.likes.includes(id)) {
+               this.popLike(id)
+                return
+            }
+            this.pushLike(id)
         }
     }
 })
