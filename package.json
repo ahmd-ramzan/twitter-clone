@@ -21,6 +21,7 @@
     "dependencies": {
         "laravel-echo": "^1.15.0",
         "pinia": "^2.0.30",
-        "pusher-js": "^8.0.1"
+        "pusher-js": "^8.0.1",
+        "vue-click-outside": "^1.1.0"
     }
 }
