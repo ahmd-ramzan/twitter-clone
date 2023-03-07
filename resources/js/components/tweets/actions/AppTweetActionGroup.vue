@@ -6,6 +6,7 @@
         </li>
         <li>
             <app-tweet-retweet-action
+                :tweet="tweet"
             />
         </li>
         <li>
