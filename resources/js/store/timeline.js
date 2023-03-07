@@ -7,6 +7,7 @@ export const useTimelineStore = defineStore('timeline', {
         return {
             tweets: [],
             likes: [],
+            retweets: [],
             lastPage: 1
         }
     },
@@ -19,6 +20,7 @@ export const useTimelineStore = defineStore('timeline', {
             let response = await axios.get(url)
             this.lastPage = response.data.meta.last_page
             this.pushLikes(response.data.meta.likes)
+            this.pushRetweets(response.data.meta.retweets)
             response.data.data.map((tweet) => {
                 this.tweets.push(tweet)
             })
@@ -57,6 +59,11 @@ export const useTimelineStore = defineStore('timeline', {
                 return
             }
             this.pushLike(id)
-        }
+        },
+        pushRetweets(data) {
+            data.map((retweet) => {
+                this.retweets.push(retweet)
+            })
+        },
     }
 })
