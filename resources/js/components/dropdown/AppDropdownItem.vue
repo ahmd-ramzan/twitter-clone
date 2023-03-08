@@ -8,8 +8,8 @@
 export default {
     methods: {
         handleClick(e) {
-            this.$emit('click', e)
-            this.$parent.close()
+            // this.$emit('click', e)
+            // this.$parent.close()
         }
     }
 }

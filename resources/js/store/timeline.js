@@ -65,5 +65,11 @@ export const useTimelineStore = defineStore('timeline', {
                 this.retweets.push(retweet)
             })
         },
+        async retweetTweet(tweet) {
+            await axios.post(`/api/tweets/${tweet.id}/retweets`)
+        },
+        async unretweetTweet(tweet) {
+            await axios.delete(`/api/tweets/${tweet.id}/retweets`)
+        },
     }
 })
