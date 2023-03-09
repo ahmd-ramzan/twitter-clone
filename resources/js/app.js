@@ -47,4 +47,9 @@ Echo.channel('tweets').listen('.TweetLikesWereUpdated', (e) => {
     if (e.user_id === User.id) {
         timeline.syncLike(e.id)
     }
+}).listen('.TweetRetweetsWereUpdated', (e) => {
+    timeline.setRetweets(e)
+    if (e.user_id === User.id) {
+        timeline.syncRetweet(e.id)
+    }
 })

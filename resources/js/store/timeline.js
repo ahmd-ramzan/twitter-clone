@@ -71,5 +71,29 @@ export const useTimelineStore = defineStore('timeline', {
         async unretweetTweet(tweet) {
             await axios.delete(`/api/tweets/${tweet.id}/retweets`)
         },
+        pushRetweet(id) {
+            this.retweets.push(id)
+        },
+        popRetweet(id) {
+            this.retweets = without(this.retweets, id)
+        },
+        syncRetweet(id) {
+            if (this.retweets.includes(id)) {
+                this.popRetweet(id)
+                return
+            }
+            this.pushRetweet(id)
+        },
+        setRetweets({id, count}) {
+            this.tweets.map((tweet) => {
+                if (tweet.id === id) {
+                    tweet.retweets_count = count
+                }
+                if (tweet.original_tweet !== null && tweet.original_tweet.id === id) {
+                    tweet.original_tweet.retweets_count = count
+                }
+                return tweet
+            })
+        },
     }
 })
